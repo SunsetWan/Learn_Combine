@@ -1,0 +1,22 @@
+{
+  "name": "Learn_Combine",
+  "version": "0.1.0",
+  "summary": "A short description of Learn_Combine.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Sunset Wan/Learn_Combine",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Sunset Wan": "sunset.wan@assaabloy.com"
+  },
+  "source": {
+    "git": "https://github.com/Sunset Wan/Learn_Combine.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "Learn_Combine/Classes/**/*"
+}

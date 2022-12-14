@@ -1,0 +1,16 @@
+PODS:
+  - Learn_Combine (0.1.0)
+
+DEPENDENCIES:
+  - Learn_Combine (from `../`)
+
+EXTERNAL SOURCES:
+  Learn_Combine:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Learn_Combine: 2e5dea3a9b19f02d0f4d2cb11ad3c1733608037a
+
+PODFILE CHECKSUM: ab179a0567d6dc3966c2a6dec36463916741b004
+
+COCOAPODS: 1.11.3
