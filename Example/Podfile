@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'Learn_Combine_Example' do
+  pod 'Learn_Combine', :path => '../'
+
+  target 'Learn_Combine_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
