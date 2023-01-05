@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12E5C8EF57EE59D6B295E1CD /* Pods_Learn_Combine_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D08DCDD89ECDFD79C683432 /* Pods_Learn_Combine_Example.framework */; };
+		29455CF9295C9AAC00928237 /* ValidateNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */; };
 		3DF8F84E12C8F5547AA57CFA /* Pods_Learn_Combine_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DFE9B153CD1ACA01FF743 /* Pods_Learn_Combine_Tests.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		0A7D09A4BC12F6F7007F63D2 /* Learn_Combine.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Learn_Combine.podspec; path = ../Learn_Combine.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0D08DCDD89ECDFD79C683432 /* Pods_Learn_Combine_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learn_Combine_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNewPasswordViewController.swift; sourceTree = "<group>"; };
 		2C3DFE9B153CD1ACA01FF743 /* Pods_Learn_Combine_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learn_Combine_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C7CC284718A1EDFFDD7EC79 /* Pods-Learn_Combine_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learn_Combine_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Learn_Combine_Tests/Pods-Learn_Combine_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5BD12785EF8716FC72B3B5FC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */,
 			);
 			name = "Example for Learn_Combine";
 			path = Learn_Combine;
@@ -209,10 +212,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 32V635PZ8Q;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 32V635PZ8Q;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -329,6 +334,7 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				29455CF9295C9AAC00928237 /* ValidateNewPasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +418,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -457,6 +464,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -466,6 +474,7 @@
 			baseConfigurationReference = DFE8ED5D3727D565D7829167 /* Pods-Learn_Combine_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 32V635PZ8Q;
 				INFOPLIST_FILE = Learn_Combine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -473,7 +482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -482,6 +491,7 @@
 			baseConfigurationReference = D5735D81996D8C164AA7C4C6 /* Pods-Learn_Combine_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 32V635PZ8Q;
 				INFOPLIST_FILE = Learn_Combine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -489,7 +499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -497,6 +507,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C7CC284718A1EDFFDD7EC79 /* Pods-Learn_Combine_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 32V635PZ8Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -511,7 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Learn_Combine_Example.app/Learn_Combine_Example";
 			};
 			name = Debug;
@@ -520,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CBD04FD6CFE4ADCF64A8C8B9 /* Pods-Learn_Combine_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 32V635PZ8Q;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -530,7 +542,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Learn_Combine_Example.app/Learn_Combine_Example";
 			};
 			name = Release;
