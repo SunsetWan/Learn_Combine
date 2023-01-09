@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 //        usingCombineDemo3()
 //        usingCombineDemo4()
 //        usingCombineDemo5()
-        usingCombineDemo6()
+        usingCombineDemo7()
     }
 
     private func initTextField() {
@@ -175,6 +175,44 @@ class ViewController: UIViewController {
 //        current temp: 20.0
 //        Temperature now: 25.0
 //        current temp: 20.0
+    }
+
+    @Published var isFirstTimeUnlockOrLock: Bool = true
+    var startLockSub: AnyCancellable?
+    var endLockSub: AnyCancellable?
+    // Q: how to run paired api call?
+    private func usingCombineDemo7() {
+        startAndEndTrack()
+    }
+
+    private func startAndEndTrack() {
+//        startLockSub = $isFirstTimeUnlockOrLock.sink(receiveValue: { newValue in
+//            if newValue {
+//                self.startLock()
+//                self.startLock()
+//                self.startLock()
+//            }
+//        })
+
+        endLockSub = $isFirstTimeUnlockOrLock.sink(receiveValue: { newValue in
+//            print("newValue: \(newValue)")
+            if !newValue {
+                print("end track Lock")
+            }
+        })
+
+        self.startLock()
+
+        self.startLock()
+
+        self.startLock()
+    }
+
+    private func startLock() {
+        if isFirstTimeUnlockOrLock {
+            print("start track Lock")
+            self.isFirstTimeUnlockOrLock = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
