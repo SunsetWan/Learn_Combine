@@ -14,7 +14,6 @@ protocol EmptyHouseCellDelegate: AnyObject {
 }
 
 struct EmptyHouseDetail: Hashable {
-
     let name: String
 
     init(name: String) {
@@ -42,6 +41,7 @@ class EmptyHouseCell: UICollectionViewCell {
         commonInit()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -130,6 +130,7 @@ class EmptyHouseListPage: UIView {
         commonInit()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -248,176 +249,30 @@ class EmptyHouseListPage: UIView {
 
 // 🔗: https://www.kodeco.com/5436806-modern-collection-views-with-compositional-layouts
 class LearnUICollectionViewCompositionalLayoutViewController: UIViewController {
-
-    class HeaderView: UIView {
-        let titleLabel = UILabel()
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            commonInit()
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        private func commonInit() {
-            titleLabel.text = "空房屋（4）"
-            titleLabel.font = .systemFont(ofSize: 18)
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            addSubview(titleLabel)
-
-            NSLayoutConstraint.activate([
-                // Horizonal
-                titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-                titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-
-                // Vertical
-                titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-                titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
-            ])
-        }
-
-    }
-
-    enum Section {
-        case main
-    }
-
-    private let headerView = HeaderView()
-    private var collectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<Section, EmptyHouseDetail>!
-
-    private let dismissButton = UIButton()
-    private let buttonLayoutGuide = UILayoutGuide()
-
-    private let page: EmptyHouseListPage = EmptyHouseListPage()
+    private lazy var page: EmptyHouseListPage = EmptyHouseListPage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-//        configureCollectionView()
-//        configureHeaderView()
-//        configureDataSource()
-//        configureDismissButton()
-//        initLayout()
+        configurePage()
+        initLayouts()
+    }
+
+    private func configurePage() {
         page.collectionView.delegate = self
-
         page.translatesAutoresizingMaskIntoConstraints = false
-        page.backgroundColor = .lightGray
         view.addSubview(page)
+    }
 
+    private func initLayouts() {
         NSLayoutConstraint.activate([
             // Horizonal
             page.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             page.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             // Vertical
-            page.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            page.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            page.topAnchor.constraint(equalTo: view.topAnchor),
+            page.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-
-    }
-
-    private func configureCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: generateLayout())
-        collectionView.delegate = self
-        collectionView.register(EmptyHouseCell.self, forCellWithReuseIdentifier: EmptyHouseCell.reuseIdentifer)
-
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-    }
-
-    private func configureHeaderView() {
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(headerView)
-    }
-
-    private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, EmptyHouseDetail>(
-            collectionView: collectionView,
-            cellProvider: { (collectionView, indexPath, emptyHouseDetail) -> UICollectionViewCell? in
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: EmptyHouseCell.reuseIdentifer,
-                    for: indexPath) as? EmptyHouseCell else {
-//                    return UICollectionViewCell()
-                    fatalError("123")
-                }
-                cell.houseName = emptyHouseDetail.name
-                return cell
-            })
-
-        let snapshot = snapshotForCurrentState()
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-    private func configureDismissButton() {
-        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        dismissButton.setTitle("收起", for: .normal)
-        dismissButton.setTitleColor(.black, for: .normal)
-        view.addSubview(dismissButton)
-        view.addLayoutGuide(buttonLayoutGuide)
-    }
-
-    private func initLayout() {
-        NSLayoutConstraint.activate([
-            // horizonal
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            buttonLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            buttonLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            dismissButton.leadingAnchor.constraint(equalTo: buttonLayoutGuide.leadingAnchor, constant: 40),
-            dismissButton.trailingAnchor.constraint(equalTo: buttonLayoutGuide.trailingAnchor, constant: -40),
-
-            // Vertical
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
-            headerView.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
-            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            buttonLayoutGuide.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 26),
-            buttonLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            buttonLayoutGuide.heightAnchor.constraint(equalToConstant: 106),
-            dismissButton.topAnchor.constraint(equalTo: buttonLayoutGuide.topAnchor, constant: 16),
-            dismissButton.bottomAnchor.constraint(equalTo: buttonLayoutGuide.bottomAnchor, constant: -34),
-        ])
-    }
-
-    private func snapshotForCurrentState() -> NSDiffableDataSourceSnapshot<Section, EmptyHouseDetail> {
-      var snapshot = NSDiffableDataSourceSnapshot<Section, EmptyHouseDetail>()
-      snapshot.appendSections([Section.main])
-      let items = itemsForHouse()
-      snapshot.appendItems(items)
-      return snapshot
-    }
-
-    private func itemsForHouse() -> [EmptyHouseDetail] {
-        [
-            EmptyHouseDetail(name: "空房屋 1"),
-            EmptyHouseDetail(name: "空房屋 2"),
-            EmptyHouseDetail(name: "空房屋 3"),
-            EmptyHouseDetail(name: "空房屋 4"),
-        ]
-    }
-
-    private func generateLayout() -> UICollectionViewLayout {
-        let mainItem = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(1)
-            ))
-
-        let groupSize = NSCollectionLayoutSize(
-          widthDimension: .fractionalWidth(1.0),
-          heightDimension: .estimated(48))
-
-        let group = NSCollectionLayoutGroup.horizontal(
-          layoutSize: groupSize,
-          subitem: mainItem,
-          count: 1)
-
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
     }
 }
 
