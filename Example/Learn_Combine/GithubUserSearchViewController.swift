@@ -64,18 +64,27 @@ class GithubUserSearchView: UIView {
 
 class GithubUserSearchViewController: UIViewController {
     let page = GithubUserSearchView()
+    let activityIndicator = UIActivityIndicatorView()
 
     var userNameSub: AnyCancellable?
+    var apiNetworkActivitySubscriber: AnyCancellable?
     @Published var userName: String = ""
     @Published var githubUserData = [GithubAPIUser]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        configureActivityIndicator()
         initViews()
         initPubSub()
 
         page.userIDTextField.addTarget(self, action: #selector(githubIDChanged), for: .editingChanged)
+    }
+
+    private func configureActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        activityIndicator.color = .blue
     }
 
     private func initViews() {
@@ -86,6 +95,9 @@ class GithubUserSearchViewController: UIViewController {
             page.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             page.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             page.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: page.avatarImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: page.avatarImageView.centerYAnchor),
         ])
     }
 
@@ -93,16 +105,24 @@ class GithubUserSearchViewController: UIViewController {
     var myBackgroundQueue: DispatchQueue = .init(label: "myBackgroundQueue", qos: .background)
 
     private func initPubSub() {
-        userNameSub = $userName
+
+        apiNetworkActivitySubscriber = GithubAPI.networkHUDPub
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { doingSomethingNow in
+                if doingSomethingNow {
+                    self.activityIndicator.startAnimating()
+                } else {
+                    self.activityIndicator.stopAnimating()
+                }
+            })
+
+        let usernamePub = $userName
             .throttle(for: 5, scheduler: myBackgroundQueue, latest: true)
             .removeDuplicates()
             .print("userNameSub: ")
-            .sink(receiveCompletion: { _ in
-//                print("Completion: \($0)")
-            }, receiveValue: { _ in
-//                print("Main thread: \(Thread.isMainThread)")
-//                print("Received value \($0)")
-            })
+            .map { username -> AnyPublisher<[GithubAPI], Never> in
+                return GithubAPI.retrieveGithubUser(username: username)
+            }
     }
 
     @objc
@@ -122,14 +142,29 @@ enum GithubAPI {
         }
 
         let assembledURL = String("https://api.github.com/users/\(username)")
+        let publisher = URLSession.shared.dataTaskPublisher(for: URL(string: assembledURL)!)
+            .handleEvents(receiveSubscription: { _ in
+                networkHUDPub.send(true)
+            }, receiveCompletion: {_ in
+                networkHUDPub.send(false)
+            }, receiveCancel: {
+                networkHUDPub.send(false)
+            })
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                    throw APIFailureCondition.invalidServerResponse
+                }
+                return data
+            }
+            .decode(type: GithubAPIUser.self, decoder: JSONDecoder())
+            .map {
+                [$0]
+            }
+            .catch { error in
+                return Just([GithubAPIUser]())
+            }
+            .eraseToAnyPublisher()
 
-
-
-
-
-
-
-
-        return Just([GithubAPIUser]()).eraseToAnyPublisher()
+        return publisher
     }
 }
