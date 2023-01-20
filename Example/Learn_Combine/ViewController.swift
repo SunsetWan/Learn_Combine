@@ -53,7 +53,8 @@ class ViewController: UIViewController {
 //        usingCombineDemo3()
 //        usingCombineDemo4()
 //        usingCombineDemo5()
-        usingCombineDemo7()
+//        usingCombineDemo7()
+        usingCombineDemo6()
 
 
         configureEmptyHouse()
@@ -196,7 +197,7 @@ class ViewController: UIViewController {
                 print("Temperature now: \($0)")
                 print("current temp: \(weather.temperature)")
             }
-        weather.temperature = 25
+//        weather.temperature = 25
 
 //        Temperature now: 20.0
 //        current temp: 20.0

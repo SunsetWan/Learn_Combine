@@ -66,6 +66,7 @@ class GithubUserSearchViewController: UIViewController {
     let page = GithubUserSearchView()
 
     var userNameSub: AnyCancellable?
+    var avatarViewSubscriber: AnyCancellable?
     @Published var userName: String = ""
     @Published var githubUserData = [GithubAPIUser]()
 
@@ -97,12 +98,39 @@ class GithubUserSearchViewController: UIViewController {
             .throttle(for: 5, scheduler: myBackgroundQueue, latest: true)
             .removeDuplicates()
             .print("userNameSub: ")
-            .sink(receiveCompletion: { _ in
-//                print("Completion: \($0)")
-            }, receiveValue: { _ in
-//                print("Main thread: \(Thread.isMainThread)")
-//                print("Received value \($0)")
-            })
+            .map { username -> AnyPublisher<[GithubAPIUser], Never> in
+                return GithubAPI.retrieveGithubUser(username: username)
+            }
+            .switchToLatest()
+            .receive(on: RunLoop.main)
+            .assign(to: \.githubUserData, on: self)
+
+        avatarViewSubscriber = $githubUserData
+            .print("github user data: ")
+            .map { userData -> AnyPublisher<UIImage, Never> in
+                guard let firstUser = userData.first else {
+                    return Just(UIImage()).eraseToAnyPublisher()
+                }
+
+                return URLSession.shared.dataTaskPublisher(for: URL(string: firstUser.avatar_url)!)
+                    .handleEvents(receiveSubscription: { _ in
+                        DispatchQueue.main.async {
+                            self.activityIndicator.startAnimating()
+                        }
+                    }, receiveCompletion: { _ in
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                        }
+                    }, receiveCancel: {
+                        DispatchQueue.main.async {
+                            self.activityIndicator.stopAnimating()
+                        }
+                    })
+                    .receive(on: self.myBackgroundQueue)
+
+
+            }
+            .sink {_ in}
     }
 
     @objc
@@ -122,14 +150,31 @@ enum GithubAPI {
         }
 
         let assembledURL = String("https://api.github.com/users/\(username)")
+        let publisher = URLSession.shared.dataTaskPublisher(for: URL(string: assembledURL)!)
+            .handleEvents(receiveSubscription: { _ in
+                networkHUDPub.send(true)
+            }, receiveCompletion: {_ in
+                networkHUDPub.send(false)
+            }, receiveCancel: {
+                networkHUDPub.send(false)
+            })
+            .tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200
+                else {
+                    throw APIFailureCondition.invalidServerResponse
+                }
+                return data
+            }
+            .decode(type: GithubAPIUser.self, decoder: JSONDecoder())
+            .map {
+                [$0]
+            }
+            .catch { error in
+                return Just([])
+            }
+            .eraseToAnyPublisher()
 
-
-
-
-
-
-
-
-        return Just([GithubAPIUser]()).eraseToAnyPublisher()
+        return publisher
     }
 }
