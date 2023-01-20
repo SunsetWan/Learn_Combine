@@ -17,6 +17,8 @@ class ViewController: UIViewController {
 
     var cancellable: AnyCancellable?
 
+    let showEmptyHouseButton = UIButton()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -28,7 +30,7 @@ class ViewController: UIViewController {
         }
         password = "555"
 
-        initTextField()
+//        initTextField()
 
 //        let sub = pub1.sin
 
@@ -51,7 +53,33 @@ class ViewController: UIViewController {
 //        usingCombineDemo3()
 //        usingCombineDemo4()
 //        usingCombineDemo5()
-        usingCombineDemo7()
+//        usingCombineDemo7()
+        usingCombineDemo6()
+
+
+        configureEmptyHouse()
+    }
+
+    private func configureEmptyHouse() {
+        showEmptyHouseButton.setTitle("Show empty house", for: .normal)
+        showEmptyHouseButton.setTitleColor(.blue, for: .normal)
+        showEmptyHouseButton.translatesAutoresizingMaskIntoConstraints = false
+        showEmptyHouseButton.addTarget(self, action: #selector(showEmptyHouseButtonDidPress), for: .touchUpInside)
+
+        view.addSubview(showEmptyHouseButton)
+
+        NSLayoutConstraint.activate([
+            showEmptyHouseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showEmptyHouseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+
+
+    }
+
+    @objc private func showEmptyHouseButtonDidPress() {
+        let vc = LearnUICollectionViewCompositionalLayoutViewController()
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
     }
 
     private func initTextField() {
@@ -169,7 +197,7 @@ class ViewController: UIViewController {
                 print("Temperature now: \($0)")
                 print("current temp: \(weather.temperature)")
             }
-        weather.temperature = 25
+//        weather.temperature = 25
 
 //        Temperature now: 20.0
 //        current temp: 20.0
