@@ -406,6 +406,37 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1337DB5D82617803E5C6B27B92657197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15564C8679CD0F28C3B08F77BFBA6CC3 /* Learn_Combine.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Learn_Combine/Learn_Combine-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Learn_Combine/Learn_Combine-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Learn_Combine/Learn_Combine.modulemap";
+				PRODUCT_MODULE_NAME = Learn_Combine;
+				PRODUCT_NAME = Learn_Combine;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		2FBB877E47555F9219D86AA6F523FFB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EA7F180EA5533EE92A4F3CDA205CA46C /* Pods-Learn_Combine_Example.release.xcconfig */;
@@ -439,37 +470,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		750EFB97EE23BD66E55652AA4BB70006 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15564C8679CD0F28C3B08F77BFBA6CC3 /* Learn_Combine.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Learn_Combine/Learn_Combine-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Learn_Combine/Learn_Combine-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Learn_Combine/Learn_Combine.modulemap";
-				PRODUCT_MODULE_NAME = Learn_Combine;
-				PRODUCT_NAME = Learn_Combine;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		7EE7A78859F657F6BEFC651185B43192 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -530,6 +530,38 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		B8EF87B566A0EE064A58D8C85F175E37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA38B0FD188ECBE5068BE63763750470 /* Learn_Combine.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Learn_Combine/Learn_Combine-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Learn_Combine/Learn_Combine-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Learn_Combine/Learn_Combine.modulemap";
+				PRODUCT_MODULE_NAME = Learn_Combine;
+				PRODUCT_NAME = Learn_Combine;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -699,38 +731,6 @@
 			};
 			name = Release;
 		};
-		FDFF76FE3A7127F4855F19F345E0F229 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA38B0FD188ECBE5068BE63763750470 /* Learn_Combine.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Learn_Combine/Learn_Combine-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Learn_Combine/Learn_Combine-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Learn_Combine/Learn_Combine.modulemap";
-				PRODUCT_MODULE_NAME = Learn_Combine;
-				PRODUCT_NAME = Learn_Combine;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -764,8 +764,8 @@
 		960C7E7D741CB0AC5B2C8FBCA19867E9 /* Build configuration list for PBXNativeTarget "Learn_Combine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				750EFB97EE23BD66E55652AA4BB70006 /* Debug */,
-				FDFF76FE3A7127F4855F19F345E0F229 /* Release */,
+				1337DB5D82617803E5C6B27B92657197 /* Debug */,
+				B8EF87B566A0EE064A58D8C85F175E37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

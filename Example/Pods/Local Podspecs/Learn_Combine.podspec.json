@@ -9,14 +9,14 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Sunset Wan": "sunset.wan@assaabloy.com"
+    "Sunset Wan": "sunset.wan@gmail.com"
   },
   "source": {
     "git": "https://github.com/Sunset Wan/Learn_Combine.git",
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "10.0"
+    "ios": "13.0"
   },
   "source_files": "Learn_Combine/Classes/**/*"
 }

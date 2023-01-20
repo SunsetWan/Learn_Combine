@@ -117,7 +117,7 @@ class GithubUserSearchViewController: UIViewController {
                 }
             })
 
-        let usernamePub = $userName
+        userNameSub = $userName
             .throttle(for: 5, scheduler: myBackgroundQueue, latest: true)
             .removeDuplicates()
             .print("userNameSub: ")
@@ -150,16 +150,26 @@ class GithubUserSearchViewController: UIViewController {
                         }
                     })
                     .receive(on: self.myBackgroundQueue)
-
-
+                    .map {
+                        UIImage(data: $0.data)!
+                    }
+                    .catch { error in
+                        return Just(UIImage())
+                    }
+                    .eraseToAnyPublisher()
             }
-            .sink {_ in}
+            .switchToLatest()
+            .receive(on: RunLoop.main)
+            .map {
+                Optional($0)
+            }
+            .assign(to: \.page.avatarImageView.image, on: self)
     }
 
     @objc
     func githubIDChanged() {
         userName = page.userIDTextField.text ?? ""
-//        print("Set username to \(userName)")
+        print("Set username to \(userName)")
     }
 }
 
