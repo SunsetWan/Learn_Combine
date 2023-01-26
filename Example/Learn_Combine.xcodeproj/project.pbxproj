@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		12E5C8EF57EE59D6B295E1CD /* Pods_Learn_Combine_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D08DCDD89ECDFD79C683432 /* Pods_Learn_Combine_Example.framework */; };
 		29455CF9295C9AAC00928237 /* ValidateNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */; };
+		29A6859C297D50C200D0BC48 /* OBJCombineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A6859B297D50C200D0BC48 /* OBJCombineViewController.swift */; };
 		29DBCCEF296C5B000077E66F /* GithubUserSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DBCCEE296C5B000077E66F /* GithubUserSearchViewController.swift */; };
 		29DBCCF1296D3B530077E66F /* LearnUICollectionViewCompositionalLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DBCCF0296D3B530077E66F /* LearnUICollectionViewCompositionalLayoutViewController.swift */; };
 		3DF8F84E12C8F5547AA57CFA /* Pods_Learn_Combine_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C3DFE9B153CD1ACA01FF743 /* Pods_Learn_Combine_Tests.framework */; };
@@ -33,6 +34,7 @@
 		0A7D09A4BC12F6F7007F63D2 /* Learn_Combine.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Learn_Combine.podspec; path = ../Learn_Combine.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0D08DCDD89ECDFD79C683432 /* Pods_Learn_Combine_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learn_Combine_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNewPasswordViewController.swift; sourceTree = "<group>"; };
+		29A6859B297D50C200D0BC48 /* OBJCombineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBJCombineViewController.swift; sourceTree = "<group>"; };
 		29DBCCEE296C5B000077E66F /* GithubUserSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubUserSearchViewController.swift; sourceTree = "<group>"; };
 		29DBCCF0296D3B530077E66F /* LearnUICollectionViewCompositionalLayoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnUICollectionViewCompositionalLayoutViewController.swift; sourceTree = "<group>"; };
 		2C3DFE9B153CD1ACA01FF743 /* Pods_Learn_Combine_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learn_Combine_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				29A6859B297D50C200D0BC48 /* OBJCombineViewController.swift */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Learn_Combine */,
 				607FACE81AFB9204008FA782 /* Tests */,
@@ -340,6 +343,7 @@
 			files = (
 				29DBCCF1296D3B530077E66F /* LearnUICollectionViewCompositionalLayoutViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				29A6859C297D50C200D0BC48 /* OBJCombineViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				29DBCCEF296C5B000077E66F /* GithubUserSearchViewController.swift in Sources */,
 				29455CF9295C9AAC00928237 /* ValidateNewPasswordViewController.swift in Sources */,

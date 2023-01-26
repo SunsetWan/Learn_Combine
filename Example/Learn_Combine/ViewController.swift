@@ -23,12 +23,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        password = "1234"
-        let curPassword: String = password
-        let printerSubscription = $password.sink { value in
-            print("The published value is \(value)")
-        }
-        password = "555"
+//        password = "1234"
+//        let curPassword: String = password
+//        let printerSubscription = $password.sink { value in
+//            print("The published value is \(value)")
+//        }
+//        password = "555"
 
 //        initTextField()
 
@@ -54,10 +54,13 @@ class ViewController: UIViewController {
 //        usingCombineDemo4()
 //        usingCombineDemo5()
 //        usingCombineDemo7()
-        usingCombineDemo6()
+//        usingCombineDemo6()
+//        usingCombineDemo8()
 
+//        usingCombineDemo9()
+        usingCombineDemo10()
 
-        configureEmptyHouse()
+//        configureEmptyHouse()
     }
 
     private func configureEmptyHouse() {
@@ -155,9 +158,9 @@ class ViewController: UIViewController {
     // Future
     private func usingCombineDemo4() {
         let pub = generateAsyncRandomNumberFromFuture()
-        cancellable = pub.sink { randomNumber in
-            print("randomNumber: \(randomNumber)")
-        }
+//        cancellable = pub.sink { randomNumber in
+//            print("randomNumber: \(randomNumber)")
+//        }
     }
 
     func generateAsyncRandomNumberFromFuture() -> Future<Int, Never> {
@@ -213,6 +216,70 @@ class ViewController: UIViewController {
         startAndEndTrack()
     }
 
+//    @Published var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].publisher
+    private func usingCombineDemo8() {
+        var cancellables = Set<AnyCancellable>()
+
+        let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            .publisher
+//            .print()
+
+        var shared = numbers
+            .share()
+            .print("Shared")
+
+        numbers
+            .sink(receiveValue: { print("From 1: \($0)") })
+            .store(in: &cancellables)
+
+        numbers
+            .sink(receiveValue: { print("From 2: \($0)") })
+            .store(in: &cancellables)
+
+        shared
+            .sink(receiveValue: {
+                print("From shared 1: \($0)")
+
+            })
+            .store(in: &cancellables)
+
+
+        shared
+            .sink(receiveValue: { print("From shared 2: \($0)") })
+            .store(in: &cancellables)
+    }
+
+    // Shared Example
+    var cancellables = Set<AnyCancellable>()
+    private func usingCombineDemo9() {
+
+
+        let pub = (1...3).publisher
+            .delay(for: 1, scheduler: DispatchQueue.main)
+            .map( { _ in return Int.random(in: 0...100) } )
+            .print("Random")
+            .share()
+
+        pub
+            .sink { print ("Stream 1 received: \($0)")}
+            .store(in: &cancellables)
+
+        pub
+            .sink { print ("Stream 2 received: \($0)")}
+            .store(in: &cancellables)
+
+        // Prints:
+        // Random: receive value: (20)
+        // Stream 1 received: 20
+        // Stream 2 received: 20
+        // Random: receive value: (85)
+        // Stream 1 received: 85
+        // Stream 2 received: 85
+        // Random: receive value: (98)
+        // Stream 1 received: 98
+        // Stream 2 received: 98
+    }
+
     private func startAndEndTrack() {
 //        startLockSub = $isFirstTimeUnlockOrLock.sink(receiveValue: { newValue in
 //            if newValue {
@@ -241,6 +308,35 @@ class ViewController: UIViewController {
             print("start track Lock")
             self.isFirstTimeUnlockOrLock = false
         }
+    }
+
+    var pub10: AnyCancellable?
+    var pub11: AnyCancellable?
+    let publisher10 = PassthroughSubject<Int, Never>()
+    let publisher11 = CurrentValueSubject<Int, Never>(0)
+    private func usingCombineDemo10() {
+
+//        publisher10.send(1)
+//        publisher10.send(2)
+//        publisher10.send(completion: .finished)
+//
+//        print("开始订阅 10")
+//        publisher10.sink(receiveCompletion: { print($0) }, receiveValue: { print($0) })
+//
+//        publisher10.send(3)
+//        publisher10.send(completion: .finished)
+
+
+        publisher11.value = 1
+        publisher11.value = 2
+        print("开始订阅 11")
+        pub11 = publisher11.sink(receiveCompletion: { print($0) }, receiveValue: { print($0) })
+        publisher11.value = 3
+        publisher11.value = 4
+        publisher11.send(5)
+        publisher11.send(completion: .finished)
+
+        print("--- \(publisher11.value) ---")
     }
 
     override func didReceiveMemoryWarning() {
