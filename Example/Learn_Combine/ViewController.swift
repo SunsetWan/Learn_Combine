@@ -54,10 +54,94 @@ class ViewController: UIViewController {
 //        usingCombineDemo4()
 //        usingCombineDemo5()
 //        usingCombineDemo7()
-        usingCombineDemo6()
+//        usingCombineDemo6()
 
 
-        configureEmptyHouse()
+//        configureEmptyHouse()
+
+//        optionalMap()
+//        optionalsInDict()
+//        aaaa()
+        bbbb()
+    }
+
+    func optionalMap() {
+        print(#function)
+//        let x: String? = "123"
+        let x: String? = nil
+        let a = x.map {
+            $0 + "456"
+        }
+        print(a)
+
+        let y: String? = "333"
+        let g: String? = .some("333")
+
+        var y1: Int? = nil
+        y1? = 20
+        print("y1: \(y1)")
+        y1 = 20
+        y1? = 40
+        print("y1: \(y1)")
+    }
+
+    func optionalsInDict() {
+        var dictWithNils: [String: Int?] = [
+            "one": 1,
+            "two": 2,
+            "none": nil
+        ]
+    }
+
+
+
+    func aaaa() {
+        var acc = $selected
+            .flatMap({ value in
+                value.publisher
+            })
+            .print("before reduce")
+            .reduce(0, { acc, current in // reduce 放到外面为啥不行呢？
+                if current {
+                   return acc + 1
+                }
+
+                return -99
+            })
+            .print("after reduce")
+            .eraseToAnyPublisher()
+
+        bbb222 = acc.sink {
+            print("ggg: \($0)")
+            print("===")
+        }
+
+
+        selected = [false, true, false]
+
+//        selected = [true, true, true]
+    }
+
+    var bbb222: AnyCancellable?
+    @Published var selected = [true, true, false]
+    func bbbb() {
+        var acc = $selected
+            .flatMap {
+                $0.publisher
+                    .reduce(true, { acc, current in
+                        return acc && current
+                    })
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+
+        bbb222 = acc.sink {
+            print("isAllSelected: \($0)")
+            // Update UI
+        }
+
+        selected = [true, true, true]
+        selected[2].toggle()
     }
 
     private func configureEmptyHouse() {

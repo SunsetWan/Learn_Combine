@@ -105,32 +105,33 @@ class GithubUserSearchViewController: UIViewController {
             .receive(on: RunLoop.main)
             .assign(to: \.githubUserData, on: self)
 
-        avatarViewSubscriber = $githubUserData
-            .print("github user data: ")
-            .map { userData -> AnyPublisher<UIImage, Never> in
-                guard let firstUser = userData.first else {
-                    return Just(UIImage()).eraseToAnyPublisher()
-                }
-
-                return URLSession.shared.dataTaskPublisher(for: URL(string: firstUser.avatar_url)!)
-                    .handleEvents(receiveSubscription: { _ in
-                        DispatchQueue.main.async {
-                            self.activityIndicator.startAnimating()
-                        }
-                    }, receiveCompletion: { _ in
-                        DispatchQueue.main.async {
-                            self.activityIndicator.stopAnimating()
-                        }
-                    }, receiveCancel: {
-                        DispatchQueue.main.async {
-                            self.activityIndicator.stopAnimating()
-                        }
-                    })
-                    .receive(on: self.myBackgroundQueue)
-
-
-            }
-            .sink {_ in}
+//        avatarViewSubscriber = $githubUserData
+//            .print("github user data: ")
+//            .map { userData -> AnyPublisher<UIImage, Never> in
+//                guard let firstUser = userData.first else {
+//                    return Just(UIImage()).eraseToAnyPublisher()
+//                }
+//
+//                return URLSession.shared.dataTaskPublisher(for: URL(string: firstUser.avatar_url)!)
+//                    .handleEvents(receiveSubscription: { _ in
+//                        DispatchQueue.main.async {
+////                            self.activityIndicator.startAnimating()
+//                        }
+//                    }, receiveCompletion: { _ in
+//                        DispatchQueue.main.async {
+////                            self.activityIndicator.stopAnimating()
+//                        }
+//                    }, receiveCancel: {
+//                        DispatchQueue.main.async {
+////                            self.activityIndicator.stopAnimating()
+//                        }
+//                    })
+//                    .receive(on: self.myBackgroundQueue)
+//                    .eraseToAnyPublisher()
+//
+//
+//            }
+//            .sink {_ in}
     }
 
     @objc
