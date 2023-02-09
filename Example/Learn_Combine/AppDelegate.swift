@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let window = UIWindow()
-//        window.rootViewController = UINavigationController(rootViewController: ViewController())
-        window.rootViewController = VCLifeCycleViewController()
+        window.rootViewController = UINavigationController(rootViewController: VCLifeCycleViewController())
+//        window.rootViewController = VCLifeCycleViewController()
         window.makeKeyAndVisible()
         self.window = window
         return true
