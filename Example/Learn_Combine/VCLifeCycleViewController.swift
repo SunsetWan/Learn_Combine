@@ -9,6 +9,13 @@
 import UIKit
 
 class VCLifeCycleBaseViewController: UIViewController {
+    let button = UIButton()
+
+    var buttonTitle: String {
+        get {
+            "defaultName"
+        }
+    }
 
     var vcName: String {
         get {
@@ -16,9 +23,15 @@ class VCLifeCycleBaseViewController: UIViewController {
         }
     }
 
+    func didPressButton() {
+        fatalError()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         log()
+        view.backgroundColor = .white
+        configureButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,12 +41,12 @@ class VCLifeCycleBaseViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        log()
+//        log()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        log()
+//        log()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -54,43 +67,46 @@ class VCLifeCycleBaseViewController: UIViewController {
     func log(_ function: String = #function) {
         print("👹 \(vcName): " + function)
     }
+
+    private func configureButton() {
+        button.setTitle(vcName + ": " + buttonTitle, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonDidPress), for: .touchUpInside)
+
+        view.addSubview(button)
+
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+    }
+
+    @objc private func buttonDidPress() {
+        didPressButton()
+    }
 }
 
 class VCLifeCycleViewController: VCLifeCycleBaseViewController {
-
     override var vcName: String {
         "A"
     }
 
-    let pushButton = UIButton()
+    override var buttonTitle: String {
+        "Present B"
+    }
+
+    override func didPressButton() {
+        let bVC = VCLifeCycleViewControllerB()
+        let container = UINavigationController(rootViewController: bVC)
+        //      navigationController?.pushViewController(bVC, animated: true)
+        container.modalPresentationStyle = .fullScreen
+        present(container, animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .gray
-        configureEmptyHouse()
-    }
-
-    private func configureEmptyHouse() {
-        pushButton.setTitle("Push B", for: .normal)
-        pushButton.setTitleColor(.blue, for: .normal)
-        pushButton.translatesAutoresizingMaskIntoConstraints = false
-        pushButton.addTarget(self, action: #selector(pushButtonDidPress), for: .touchUpInside)
-
-        view.addSubview(pushButton)
-
-        NSLayoutConstraint.activate([
-            pushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pushButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-    }
-
-    @objc private func pushButtonDidPress() {
-        let bVC = VCLifeCycleViewControllerB()
-        let container = UINavigationController(rootViewController: bVC)
-//      navigationController?.pushViewController(bVC, animated: true)
-        container.modalPresentationStyle = .fullScreen
-        present(container, animated: true)
-
+        view.backgroundColor = .white
     }
 }
 
@@ -100,30 +116,16 @@ class VCLifeCycleViewControllerB: VCLifeCycleBaseViewController {
         "B"
     }
 
-    let pushButton = UIButton()
+    override var buttonTitle: String {
+        "Push C"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue.withAlphaComponent(0.3)
-        configureEmptyHouse()
+        view.backgroundColor = .white
     }
 
-    private func configureEmptyHouse() {
-        pushButton.setTitle("Push C", for: .normal)
-        pushButton.setTitleColor(.black, for: .normal)
-        pushButton.translatesAutoresizingMaskIntoConstraints = false
-        pushButton.addTarget(self, action: #selector(pushButtonDidPress), for: .touchUpInside)
-
-        view.addSubview(pushButton)
-
-        NSLayoutConstraint.activate([
-            pushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pushButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
-    }
-
-    @objc private func pushButtonDidPress() {
-//        dismiss(animated: true)
+    override func didPressButton() {
         let cVC = VCLifeCycleViewControllerC()
         navigationController?.pushViewController(cVC, animated: true)
     }
@@ -134,29 +136,33 @@ class VCLifeCycleViewControllerC: VCLifeCycleBaseViewController {
         "C"
     }
 
-    let pushButton = UIButton()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .blue.withAlphaComponent(0.3)
-        configureEmptyHouse()
+    override var buttonTitle: String {
+        "Present D"
     }
 
-    private func configureEmptyHouse() {
-        pushButton.setTitle("Dismiss C", for: .normal)
-        pushButton.setTitleColor(.black, for: .normal)
-        pushButton.translatesAutoresizingMaskIntoConstraints = false
-        pushButton.addTarget(self, action: #selector(pushButtonDidPress), for: .touchUpInside)
 
-        view.addSubview(pushButton)
+    override func didPressButton() {
+        let dVC = VCLifeCycleViewControllerD()
+        dVC.modalPresentationStyle = .fullScreen
+        present(dVC, animated: true)
+    }
+}
 
-        NSLayoutConstraint.activate([
-            pushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pushButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
+class VCLifeCycleViewControllerD: VCLifeCycleBaseViewController {
+    override var vcName: String {
+        "D"
     }
 
-    @objc private func pushButtonDidPress() {
-        dismiss(animated: true)
+
+    override var buttonTitle: String {
+        "Dismiss"
+    }
+
+
+    override func didPressButton() {
+//        (presentingViewController as? UINavigationController)?.popToRootViewController(animated: false)
+        (presentingViewController as? UINavigationController)?.dismiss(animated: false)
+        presentingViewController?.presentingViewController?.dismiss(animated: true)
     }
 }
