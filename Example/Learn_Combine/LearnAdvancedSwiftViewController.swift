@@ -2,7 +2,7 @@
 //  LearnAdvancedSwiftViewController.swift
 //  Learn_Combine_Example
 //
-//  Created by Sunset Wan on 7/2/2023.
+//  Created by Sunset Wan on 10/2/2023.
 //  Copyright © 2023 CocoaPods. All rights reserved.
 //
 
@@ -13,7 +13,6 @@ class LearnAdvancedSwiftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dictWithNil()
-
     }
 
     func dictWithNil() {
@@ -35,16 +34,4 @@ class LearnAdvancedSwiftViewController: UIViewController {
         a? = 6
         print("after a: \(a)")
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
