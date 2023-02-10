@@ -108,6 +108,8 @@
 				29455CF8295C9AAC00928237 /* ValidateNewPasswordViewController.swift */,
 				29DBCCEE296C5B000077E66F /* GithubUserSearchViewController.swift */,
 				29DBCCF0296D3B530077E66F /* LearnUICollectionViewCompositionalLayoutViewController.swift */,
+				2995203C2992171100C8CB4F /* LearnAdvancedSwiftViewController.swift */,
+				296085252993E9E400552947 /* VCLifeCycleViewController.swift */,
 			);
 			name = "Example for Learn_Combine";
 			path = Learn_Combine;
@@ -345,8 +347,10 @@
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				29A6859C297D50C200D0BC48 /* OBJCombineViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				2995203D2992171100C8CB4F /* LearnAdvancedSwiftViewController.swift in Sources */,
 				29DBCCEF296C5B000077E66F /* GithubUserSearchViewController.swift in Sources */,
 				29455CF9295C9AAC00928237 /* ValidateNewPasswordViewController.swift in Sources */,
+				296085262993E9E400552947 /* VCLifeCycleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
