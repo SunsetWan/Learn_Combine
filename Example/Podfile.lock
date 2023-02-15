@@ -1,16 +1,25 @@
 PODS:
+  - CocoaLumberjack (3.8.0):
+    - CocoaLumberjack/Core (= 3.8.0)
+  - CocoaLumberjack/Core (3.8.0)
   - Learn_Combine (0.1.0)
 
 DEPENDENCIES:
+  - CocoaLumberjack
   - Learn_Combine (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - CocoaLumberjack
 
 EXTERNAL SOURCES:
   Learn_Combine:
     :path: "../"
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: 78abfb691154e2a9df8ded4350d504ee19d90732
   Learn_Combine: 98b73badf6006d77b4047dd70bbd51f36d4ddf2d
 
-PODFILE CHECKSUM: ab179a0567d6dc3966c2a6dec36463916741b004
+PODFILE CHECKSUM: 78ce363799fc1f912b192416b0c5cffa9fe09fb4
 
 COCOAPODS: 1.11.3
