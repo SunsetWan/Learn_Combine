@@ -4,7 +4,7 @@ platform :ios, '13.0'
 
 target 'Learn_Combine_Example' do
   pod 'Learn_Combine', :path => '../'
-  pod 'CocoaLumberjack'
+  pod 'CocoaLumberjack/Swift'
 
   target 'Learn_Combine_Tests' do
     inherit! :search_paths
