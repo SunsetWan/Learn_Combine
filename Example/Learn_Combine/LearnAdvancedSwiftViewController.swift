@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class LearnAdvancedSwiftViewController: UIViewController {
 
@@ -14,7 +15,8 @@ class LearnAdvancedSwiftViewController: UIViewController {
         super.viewDidLoad()
 //        dictWithNil()
 //        funcCapture()
-        unsafeSwiftDoBlock()
+//        unsafeSwiftDoBlock()
+        reviewPropertyWrappers()
     }
 
     func dictWithNil() {
@@ -97,4 +99,169 @@ class LearnAdvancedSwiftViewController: UIViewController {
         // The problem is that you can’t mutate a variable through a typecast
 //        (japan["coordinates"] as? [String: Double])?["latitude"] = 36.0
     }
+
+
+    func reviewPropertyWrappers() {
+        @propertyWrapper
+        struct TwelveOrLess {
+            private var number = 0
+            var wrappedValue: Int {
+                get { return number }
+                set { number = min(newValue, 12) }
+            }
+        }
+
+        @propertyWrapper
+        struct SmallNumber {
+            private var maximum: Int
+            private var number: Int
+
+            var wrappedValue: Int {
+                get { return number }
+                set { number = min(newValue, maximum) }
+            }
+
+            init() {
+                maximum = 12
+                number = 0
+            }
+            init(wrappedValue: Int) {
+                maximum = 12
+                number = min(wrappedValue, maximum)
+            }
+            init(wrappedValue: Int, maximum: Int) {
+                self.maximum = maximum
+                number = min(wrappedValue, maximum)
+            }
+        }
+
+        struct SmallRectangle {
+            @TwelveOrLess var height: Int
+            @TwelveOrLess var width: Int
+        }
+
+        struct ZeroRectangle {
+            @SmallNumber var height: Int
+            @SmallNumber var width: Int
+        }
+
+        struct NarrowRectangle {
+            @SmallNumber(wrappedValue: 2, maximum: 5) var height: Int
+            @SmallNumber(wrappedValue: 3, maximum: 2) var width: Int
+        }
+
+        var narrowRectangle = NarrowRectangle()
+        print("narrowRectangle:", narrowRectangle.height, narrowRectangle.width)
+        narrowRectangle.height = 100
+        narrowRectangle.width = 100
+        print("narrowRectangle:", narrowRectangle.height, narrowRectangle.width)
+
+//        var rectangle = SmallRectangle(height: 100)
+        var rectangle = SmallRectangle()
+        rectangle.height = 10
+        print(rectangle.height)
+
+        rectangle.height = 24
+        print(rectangle.height)
+
+        var zeroRectangle = ZeroRectangle(height: .init(wrappedValue: 20), width: .init(wrappedValue: 30))
+        print(zeroRectangle.height, zeroRectangle.width)
+
+        finishReviewPropertyWrappers()
+    }
+
+    func finishReviewPropertyWrappers() {
+        struct Checkbox {
+            @Box var isOn: Bool = false
+            var isOnCopy: Bool = false
+
+            func didTap() {
+                isOn.toggle()
+//                isOnCopy.toggle()
+            }
+        }
+
+        func makeEditor() -> PersonEditor {
+            @Box var person = Person(name: "Sunset")
+            return PersonEditor(person: _person.projectedValue)
+        }
+
+    }
+
+    func reviewProjectedValue() {
+        @propertyWrapper
+        struct SmallNumber {
+            private var number: Int
+            private(set) var projectedValue: Bool
+
+            var wrappedValue: Int {
+                get { return number }
+                set {
+                    if newValue > 12 {
+                        number = 12
+                        projectedValue = true
+                    } else {
+                        number = newValue
+                        projectedValue = false
+                    }
+                }
+            }
+
+            init() {
+                self.number = 0
+                self.projectedValue = false
+            }
+        }
+        struct SomeStructure {
+            @SmallNumber var someNumber: Int
+        }
+        var someStructure = SomeStructure()
+
+        someStructure.someNumber = 4
+        print(someStructure.$someNumber)
+        // Prints "false"
+
+        someStructure.someNumber = 55
+        print(someStructure.$someNumber)
+        // Prints "true"
+    }
+}
+
+// The Box type is useful when you need a mutable variable in a scope that doesn’t allow mutation (for example, you can modify the value inside a Box even when you’re inside a non-mutating method).
+@propertyWrapper
+class Box<A> {
+    var wrappedValue: A
+    init(wrappedValue: A) {
+        self.wrappedValue = wrappedValue
+    }
+}
+
+extension Box {
+    var projectedValue: Reference<A> {
+        Reference<A>(get: { self.wrappedValue }, set: { self.wrappedValue = $0 })
+    }
+}
+
+@propertyWrapper
+class Reference<A> {
+    private var _get: () -> A
+    private var _set: (A) -> ()
+
+    var wrappedValue: A {
+        get { _get() }
+        set { _set(newValue) }
+    }
+
+    init(get: @escaping () -> A, set: @escaping (A) -> Void) {
+        _get = get
+        _set = set
+    }
+}
+
+struct Person {
+    var name: String
+}
+
+struct PersonEditor {
+    @Reference var person: Person
 }
